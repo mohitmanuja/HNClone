@@ -1,34 +1,60 @@
+ /* Start of every project */
 
-.mohit {
-	color: black;
-	background: red
-}
+ /* Good Points 
+ 1. Always try to enter css style relative to your html tags 
+ 2. Use _(underscore) instead of hypen/use camelCase (It will help to copy paste easily)
+ */
 
 
-p {
-	color: black;
-}
 
-body {
-	background-color: white;
-}
-h1 {
-	color: yellow;
-}
 * {
-	font-family: all;
+	margin: 0;	
+	box-sizing: border-box;
+	font-family: Verdana, Geneva, sans-serif;
 }
 
+nav {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
 
+}
+nav a h4{
+	margin-left: 8px;
+	color: black;
+}
+nav a{
+	margin: 8px 10px 
+}
 
+.img-logo{
+	 width:20px;
+	 height: 20px;
+	 border: 2px solid white;
+	 margin-left: 4px;
+	
+}
 
+li {
+	margin-top: 10px;
+}
 
 .topLink{
 	color: black;
 }
+
+
 .topLink:hover{
 		text-decoration: underline;
 
+}
+.votearrow {
+    width: 10px;
+    height: 10px;
+    border: 0px;
+    margin: 3px 2px 6px;
+    background: url("https://news.ycombinator.com/grayarrow.gif") no-repeat;
 }
 
 a:hover {
@@ -38,12 +64,35 @@ a:link {
   text-decoration: none;
 }
 
+.login{
+	display: inline;
+	position: absolute;
+	right: 10px;
+
+}
+.login:hover{
+	text-decoration: underline;
+}
+
+.hover-link:hover{
+	text-decoration: underline;
+}
+
+section {
+	width: 80vw;
+	margin: auto;
+	position: relative;
+}
 
 ol {
 	color: #828282;
-	font-size: 10pt
+	font-size: 10pt;
+	background-color: #f6f6ef;
 }
 
+.test{
+	margin-left: auto;
+}
 .indexing {
 color:#828282;
 }
@@ -53,6 +102,9 @@ color:#828282;
 	display: inline;
 	font-size: 10pt
 
+}
+.title:before{
+	content: "🔺 ";
 }
 
 .link {
@@ -67,12 +119,9 @@ color:#828282;
 .link-doc {
 	color:#828282; 
 	cursor: pointer;
-	font-size: 13px;
+	font-size: 9px;
 }
 
-.link-doc:hover{
-	text-decoration: underline;
-}
 .link-doc:before{
 	content: "("
 }
@@ -84,4 +133,34 @@ color:#828282;
 	color: #828282;
 	font-size: 11px;
 	
+}
+
+.moreP{
+	margin-top: 4px;
+	margin-left: 30px;
+	margin-bottom: 4px;
+}
+
+.hLine{
+	height:2px; 
+	background-color:red;
+}
+
+
+footer {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+footer a{
+	margin: 0px 10px;
+	font-size: 11px;
+}
+.footerSearch{
+	margin-top: 10px;
+}
+
+#footerSearch{
+	color: orchid;
 }
