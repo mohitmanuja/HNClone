@@ -1,0 +1,87 @@
+
+.mohit {
+	color: black;
+	background: red
+}
+
+
+p {
+	color: black;
+}
+
+body {
+	background-color: white;
+}
+h1 {
+	color: yellow;
+}
+* {
+	font-family: all;
+}
+
+
+
+
+
+.topLink{
+	color: black;
+}
+.topLink:hover{
+		text-decoration: underline;
+
+}
+
+a:hover {
+  text-decoration: underline;
+}
+a:link {
+  text-decoration: none;
+}
+
+
+ol {
+	color: #828282;
+	font-size: 10pt
+}
+
+.indexing {
+color:#828282;
+}
+
+.title {
+	color: black;
+	display: inline;
+	font-size: 10pt
+
+}
+
+.link {
+	color:#828282; 
+	cursor: pointer;
+}
+
+.link:hover{
+	text-decoration: underline;
+}
+
+.link-doc {
+	color:#828282; 
+	cursor: pointer;
+	font-size: 13px;
+}
+
+.link-doc:hover{
+	text-decoration: underline;
+}
+.link-doc:before{
+	content: "("
+}
+.link-doc:after{
+	content: ")"
+}
+
+.detail{
+	color: #828282;
+	font-size: 11px;
+	
+}
