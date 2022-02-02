@@ -5,13 +5,12 @@
  2. Use _(underscore) instead of hypen/use camelCase (It will help to copy paste easily)
  */
 
-
-
 * {
 	margin: 0;	
 	box-sizing: border-box;
 	font-family: Verdana, Geneva, sans-serif;
 }
+
 
 nav {
 	display: flex;
@@ -44,17 +43,25 @@ li {
 	color: black;
 }
 
+.linkTitle {
+	display: inline;
+	margin-left: 4px;
+}
+
 
 .topLink:hover{
 		text-decoration: underline;
-
 }
-.votearrow {
+/* .votearrow {
     width: 10px;
     height: 10px;
     border: 0px;
     margin: 3px 2px 6px;
     background: url("https://news.ycombinator.com/grayarrow.gif") no-repeat;
+} */
+
+.titleDiv {
+	display: inline;
 }
 
 a:hover {
@@ -62,6 +69,10 @@ a:hover {
 }
 a:link {
   text-decoration: none;
+}
+.titleDiv a:visited{
+    color:#828282;
+
 }
 
 .login{
@@ -78,6 +89,11 @@ a:link {
 	text-decoration: underline;
 }
 
+.list{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
 section {
 	width: 80vw;
 	margin: auto;
@@ -88,6 +104,7 @@ ol {
 	color: #828282;
 	font-size: 10pt;
 	background-color: #f6f6ef;
+	padding-inline-start: 30px;
 }
 
 .test{
@@ -100,15 +117,21 @@ color:#828282;
 .title {
 	color: black;
 	display: inline;
-	font-size: 10pt
-
+	font-size: 10pt;
 }
+.title:hover{
+	cursor: pointer;
+}
+
 .title:before{
-	content: "🔺 ";
-}
+	content: url("https://news.ycombinator.com/grayarrow.gif");
+	margin-right: 6px;
 
+}
 .link {
 	color:#828282; 
+	margin-left: 2px;
+	margin-right: 2px;
 	cursor: pointer;
 }
 
@@ -132,13 +155,18 @@ color:#828282;
 .detail{
 	color: #828282;
 	font-size: 11px;
-	
+	display: block;
+	margin-left: 16px;	
 }
 
 .moreP{
 	margin-top: 4px;
 	margin-left: 30px;
 	margin-bottom: 4px;
+
+}
+.moreP:hover{
+	cursor: pointer;	
 }
 
 .hLine{
