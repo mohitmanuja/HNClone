@@ -1,9 +1,30 @@
 // fetch Initial page
-var page = 0;
-fetchData(page);
+var page = 1;
+
+var q = {};
+
+if (location.href.includes("?")) {
+  location.href
+    .split("?")[1]
+    .split("&")
+    .forEach(function (i) {
+      q[i.split("=")[0]] = i.split("=")[1];
+    });
+  if (q["page"]) {
+    console.log("query page" + page);
+    page = q["page"];
+    fetchData(q["page"]);
+  } else {
+    fetchData(page);
+  }
+} else {
+  fetchData(page);
+}
 
 function fetchData(page) {
-  fetch("https://hn.algolia.com/api/v1/search?&page=" + page + "&hitsPerPage=50")
+  fetch(
+    "https://hn.algolia.com/api/v1/search?&page=" + page + "&hitsPerPage=50"
+  )
     .then((response) => {
       return response.json();
     })
@@ -52,7 +73,7 @@ function getListItem(element) {
   linkDiv.appendChild(aTag);
   li.appendChild(linkDiv);
 
-  // points 
+  // points
   let detailDiv = document.createElement("detail");
   detailDiv.className = "detail";
   detailDiv.innerText = element.points + " points by";
@@ -71,10 +92,12 @@ function getListItem(element) {
   // a2.innerText = moment(
   //   moment(element.created_at).format("YYYYMMDD"),
   //   "YYYYMMDD"
-  // ).fromNow(); 
+  // ).fromNow();
   // dayjs(element.created_at).format('YYYY-MM-DD')
 
-  a2.innerText = dayjs(dayjs(element.created_at).format('YYYY-MM-DD')).fromNow()
+  a2.innerText = dayjs(
+    dayjs(element.created_at).format("YYYY-MM-DD")
+  ).fromNow();
   detailDiv.appendChild(a2);
 
   //comments
@@ -89,6 +112,13 @@ function getListItem(element) {
   return li;
 }
 
-function getMoreData() {
-  fetchData(++page);
+function getMoreData(movePage) {
+  if(movePage){
+    page= movePage
+    window.location = "/index.html?page=" + movePage;
+
+  }else{
+    ++page;
+    window.location = "/index.html?page=" + page;
+  }
 }
