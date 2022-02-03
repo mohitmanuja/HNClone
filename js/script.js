@@ -74,7 +74,7 @@ function getListItem(element) {
   // ).fromNow(); 
   // dayjs(element.created_at).format('YYYY-MM-DD')
 
-   a2.innerText = dayjs(dayjs(element.created_at).format('YYYY-MM-DD')).fromNow()
+  a2.innerText = dayjs(dayjs(element.created_at).format('YYYY-MM-DD')).fromNow()
   detailDiv.appendChild(a2);
 
   //comments
@@ -90,5 +90,5 @@ function getListItem(element) {
 }
 
 function getMoreData() {
-  fetchData(page++);
+  fetchData(++page);
 }
