@@ -115,10 +115,10 @@ function getListItem(element) {
 function getMoreData(movePage) {
   if(movePage){
     page= movePage
-    window.location = "/index.html?page=" + movePage;
+    window.location = "?page=" + movePage;
 
   }else{
     ++page;
-    window.location = "/index.html?page=" + page;
+    window.location = "?page=" + page;
   }
 }
