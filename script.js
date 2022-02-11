@@ -3,6 +3,7 @@ var page = 1;
 
 var q = {};
 
+
 if (location.href.includes("?")) {
   location.href
     .split("?")[1]
@@ -54,10 +55,17 @@ function getListItem(element) {
   let li = document.createElement("li");
   let titleDiv = document.createElement("div");
   titleDiv.className = "titleDiv";
+  let favTag = document.createElement("button");
+  favTag.innerText = "Fav";
+  favTag.addEventListener("click",titleClicked)
+
+
   let aTitle = document.createElement("a");
   aTitle.innerText = element.title;
   aTitle.href = element.url;
+  aTitle.id = "title";
   aTitle.className = "hover-link title";
+  titleDiv.appendChild(favTag);
   titleDiv.appendChild(aTitle);
   li.appendChild(titleDiv);
 
@@ -110,6 +118,11 @@ function getListItem(element) {
   li.appendChild(detailDiv);
 
   return li;
+}
+
+
+function titleClicked(){
+  console.log("ho rha hai ");
 }
 
 function getMoreData(movePage) {

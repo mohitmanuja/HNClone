@@ -126,7 +126,6 @@ color:#828282;
 .title:before{
 	content: url("https://news.ycombinator.com/grayarrow.gif");
 	margin-right: 6px;
-
 }
 .link {
 	color:#828282; 
