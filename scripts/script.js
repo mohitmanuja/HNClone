@@ -73,10 +73,10 @@ function getListItem(element) {
   const isPresent = set.has(element.objectID);
   if (isPresent) {
     favTag.innerText = "Remove";
-    favTag.src = "favIconFilled.svg";
+    favTag.src = "https://raw.githubusercontent.com/mohitmanuja/HNClone/master/assets/favIconFilled.svg";
   } else {
     favTag.innerText = "Fav";
-    favTag.src = "favIcon.svg";
+    favTag.src = "https://raw.githubusercontent.com/mohitmanuja/HNClone/master/assets/favIcon.svg";
   }
 
   // set 10
@@ -198,14 +198,12 @@ function getFavList() {
 
 function triggerFav(element, view) {
   const isPresent = set.has(element.objectID);
-  view.classList.toggle("fade");
-  view.innerText = "Loading";
-
   if (!isPresent) {
     var audio = new Audio(
       "https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-77317/zapsplat_multimedia_button_click_fast_wooden_organic_002_78836.mp3"
     );
     audio.play();
+    view.classList.toggle("fadeIn");
     fetch("https://mgsruwfbimihsnlozaus.supabase.co/rest/v1/favourite", {
       method: "POST",
       headers: getCommonHeader(),
@@ -215,7 +213,7 @@ function triggerFav(element, view) {
         return response.json();
       })
       .then((data) => {
-        view.src = "favIconFilled.svg";
+        view.src = "https://raw.githubusercontent.com/mohitmanuja/HNClone/master/assets/favIconFilled.svg";
 
         set.add(element.objectID);
         console.log("data" + JSON.stringify(data));
@@ -224,7 +222,7 @@ function triggerFav(element, view) {
         // handle the error
       });
   } else {
-    var audio = new Audio("aww.mp3");
+    var audio = new Audio("./audios/aww.mp3");
     audio.play();
     // https://mgsruwfbimihsnlozaus.supabase.co/rest/v1/favourite?post_id=eq.test
     fetch(
@@ -241,7 +239,8 @@ function triggerFav(element, view) {
       .then((data) => {
         set.delete(element.objectID);
         console.log("removed", set);
-        view.src = "favIcon.svg";
+        view.src = "https://raw.githubusercontent.com/mohitmanuja/HNClone/master/assets/favIcon.svg";
+        view.classList.toggle("fadeOut");
 
         console.log("data" + JSON.stringify(data));
       })

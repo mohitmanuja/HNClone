@@ -205,10 +205,11 @@ footer a{
 	transition: opacity 0.3 ease-in-out;
 	
 }
-#favButton.fade {
+#favButton.fadeIn {
 	transition: transform 0.25s ease;
 	transform: scale(1.2);
-
-
-
+}
+#favButton.fadeOut {
+	transition: transform 0.25s ease;
+	transform: scale(1);
 }
