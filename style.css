@@ -37,6 +37,7 @@ nav a{
 
 li {
 	margin-top: 10px;
+	position: relative;
 }
 
 .topLink{
@@ -190,4 +191,24 @@ footer a{
 
 #footerSearch{
 	color: orchid;
+}
+
+#favButton{
+	position: absolute;
+	margin-right: 0px;
+	right: 10px;
+	opacity: 1;
+	-webkit-transition: opacity 0.3s ease-in-out;
+	-moz-transition: opacity 0.3s ease-in-out;
+	-ms-transition: opacity 0.3s ease-in-out;
+	-o-transition: opacity 0.3s ease-in-out;
+	transition: opacity 0.3 ease-in-out;
+	
+}
+#favButton.fade {
+	transition: transform 0.25s ease;
+	transform: scale(1.2);
+
+
+
 }
