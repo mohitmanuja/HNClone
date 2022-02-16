@@ -1,6 +1,7 @@
 const loginForm = document.getElementById("login-form");
 const loginButton = document.getElementById("login");
 const createButton = document.getElementById("create");
+
 let signupMsg = document.getElementById("postSignupMsg");
 signupMsg.hidden = true;
 
@@ -92,17 +93,3 @@ function saveData(data) {
   document.cookie = "token_expire=" + data.expires_in;
 }
 
-function logOutUser() {
-  fetch("https://mgsruwfbimihsnlozaus.supabase.co/auth/v1/logout", {
-    method: "POST",
-    headers: getCommonHeader(),
-  })
-    .then((response) => {
-      deleteCookie("auth_token");
-      window.location.reload();
-      return response.json();
-    })
-    .catch(function () {
-      // handle the error
-    });
-}
