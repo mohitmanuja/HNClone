@@ -41,13 +41,22 @@
 			</nav>
 		</div>
 
+
+		<div id="loader" class="loader-wrapper">
+			<div class="loader"></div>
+		</div>
 		<ol id="listView" class="list"></ol>
-		<p class="moreP" style="display: inline;" onclick="getMoreData(1)">1</p>
-		<p class="moreP" style="display: inline;" onclick="getMoreData(2)">2</p>
-		<p class="moreP" style="display: inline;" onclick="getMoreData(3)">3</p>
-		<p class="moreP" style="display: inline;" onclick="getMoreData(4)">4</p>
-		<p class="moreP" style="display: inline;" onclick="getMoreData(5)">5</p>
-		<p class="moreP" onclick="getMoreData()">Next</p>
+
+		<div id="bottomNav" style="margin-top: 16px;">
+			<p class="moreP" id="1" style="display: inline;" onclick="getMoreData(1)">1</p>
+			<p class="moreP" id="2" style="display: inline;" onclick="getMoreData(2)">2</p>
+			<p class="moreP" id="3" style="display: inline;" onclick="getMoreData(3)">3</p>
+			<p class="moreP" id="4" style="display: inline;" onclick="getMoreData(4)">4</p>
+			<p class="moreP" id="5" style="display: inline;" onclick="getMoreData(5)">5</p>
+			<p class="moreP" style="display: inline;" onclick="getMoreData()">Next</p>
+
+		</div>
+
 
 		<div class="hLine"></div>
 		<footer>

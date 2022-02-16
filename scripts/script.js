@@ -23,7 +23,6 @@ function getInitialData() {
         q[i.split("=")[0]] = i.split("=")[1];
       });
     if (q["page"]) {
-      console.log("query page" + page);
       page = q["page"];
       fetchData(q["page"]);
     } else {
@@ -32,9 +31,11 @@ function getInitialData() {
   } else {
     fetchData(page);
   }
+  triggerPageNavColor(page);
 }
 
 function fetchData(page) {
+  showLoader();
   fetch(
     "https://hn.algolia.com/api/v1/search?&page=" + page + "&hitsPerPage=50"
   )
@@ -42,6 +43,7 @@ function fetchData(page) {
       return response.json();
     })
     .then((data) => {
+      hideLoader();
       setData(data);
     })
     .catch(function () {
@@ -49,6 +51,15 @@ function fetchData(page) {
     });
 }
 
+function hideLoader() {
+  let loader = document.getElementById("loader");
+  loader.hidden = true;
+}
+
+function showLoader() {
+  let loader = document.getElementById("loader");
+  loader.hidden = false;
+}
 function setData(data) {
   let hits = data.hits;
   console.log("count " + hits.length);
@@ -73,10 +84,12 @@ function getListItem(element) {
   const isPresent = set.has(element.objectID);
   if (isPresent) {
     favTag.innerText = "Remove";
-    favTag.src = "https://raw.githubusercontent.com/mohitmanuja/HNClone/master/assets/favIconFilled.svg";
+    favTag.src =
+      "https://raw.githubusercontent.com/mohitmanuja/HNClone/master/assets/favIconFilled.svg";
   } else {
     favTag.innerText = "Fav";
-    favTag.src = "https://raw.githubusercontent.com/mohitmanuja/HNClone/master/assets/favIcon.svg";
+    favTag.src =
+      "https://raw.githubusercontent.com/mohitmanuja/HNClone/master/assets/favIcon.svg";
   }
 
   // set 10
@@ -213,7 +226,8 @@ function triggerFav(element, view) {
         return response.json();
       })
       .then((data) => {
-        view.src = "https://raw.githubusercontent.com/mohitmanuja/HNClone/master/assets/favIconFilled.svg";
+        view.src =
+          "https://raw.githubusercontent.com/mohitmanuja/HNClone/master/assets/favIconFilled.svg";
 
         set.add(element.objectID);
         console.log("data" + JSON.stringify(data));
@@ -239,7 +253,8 @@ function triggerFav(element, view) {
       .then((data) => {
         set.delete(element.objectID);
         console.log("removed", set);
-        view.src = "https://raw.githubusercontent.com/mohitmanuja/HNClone/master/assets/favIcon.svg";
+        view.src =
+          "https://raw.githubusercontent.com/mohitmanuja/HNClone/master/assets/favIcon.svg";
         view.classList.toggle("fadeOut");
 
         console.log("data" + JSON.stringify(data));
@@ -247,5 +262,22 @@ function triggerFav(element, view) {
       .catch(function () {
         // handle the error
       });
+  }
+}
+
+function triggerPageNavColor(page) {
+  let page1 = document.getElementById("1");
+  let page2 = document.getElementById("2");
+  let page3 = document.getElementById("3");
+  let page4 = document.getElementById("4");
+  let page5 = document.getElementById("5");
+  page1.classList.remove("pageSelected");
+  page2.classList.remove("pageSelected");
+  page3.classList.remove("pageSelected");
+  page4.classList.remove("pageSelected");
+  page5.classList.remove("pageSelected");
+  if (page < 6) {
+    let queryPage = document.getElementById(page);
+    queryPage.classList.add("pageSelected");
   }
 }
