@@ -1,20 +1,22 @@
 const APIKEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1nc3J1d2ZiaW1paHNubG96YXVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDQ1OTQ0MzgsImV4cCI6MTk2MDE3MDQzOH0.22p_uzytYGW8wZznlLLgB61-JYbBkV-7lcwXm_tMyWc";
-const AUTH =
-  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1nc3J1d2ZiaW1paHNubG96YXVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDQ1OTQ0MzgsImV4cCI6MTk2MDE3MDQzOH0.22p_uzytYGW8wZznlLLgB61-JYbBkV-7lcwXm_tMyWc";
-
 // fetch Initial page
 var page = 1;
 
 var q = {};
 var favData = {};
 var set = new Set();
-
-getFavList();
+console.log("User Logged in " + checkIsUserLoggedIn());
+window.onload = function () {
+  handleUser();
+};
+if (checkIsUserLoggedIn()) {
+  getFavList();
+} else {
+  getInitialData();
+}
 
 function getInitialData() {
-  console.log(JSON.stringify(favData));
-
   if (location.href.includes("?")) {
     location.href
       .split("?")[1]
@@ -40,11 +42,13 @@ function fetchData(page) {
     "https://hn.algolia.com/api/v1/search?&page=" + page + "&hitsPerPage=50"
   )
     .then((response) => {
+      hideLoader();
+
       return response.json();
     })
     .then((data) => {
-      hideLoader();
       setData(data);
+
     })
     .catch(function () {
       // handle the error
@@ -62,8 +66,6 @@ function showLoader() {
 }
 function setData(data) {
   let hits = data.hits;
-  console.log("count " + hits.length);
-  console.log(hits);
   hits.forEach((element) => {
     if (element.title != null && element.url != null) {
       let li = document.createElement("li");
@@ -72,6 +74,9 @@ function setData(data) {
     }
   });
 }
+var audio = new Audio(
+  "https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-77317/zapsplat_multimedia_button_click_fast_wooden_organic_002_78836.mp3"
+);
 
 function getListItem(element) {
   // li item
@@ -158,6 +163,9 @@ function getListItem(element) {
 
   return li;
 }
+function checkIsUserLoggedIn() {
+  return getcookie("auth_token") ? true : false;
+}
 
 function titleClicked(element, view) {
   var ourElement = {
@@ -166,6 +174,7 @@ function titleClicked(element, view) {
     author: element.author,
     objectID: element.objectID,
     points: element.points,
+    userID: getcookie("user_id"),
   };
   triggerFav(ourElement, view);
 }
@@ -183,16 +192,21 @@ function getMoreData(movePage) {
 function getCommonHeader() {
   return {
     apikey: APIKEY,
-    Authorization: AUTH,
     "Content-Type": "application/json",
+    "Authorization": "Bearer "+getcookie("auth_token"),
     Prefer: "return=representation",
   };
 }
 
 function getFavList() {
-  fetch("https://mgsruwfbimihsnlozaus.supabase.co/rest/v1/favourite?select=*", {
-    headers: getCommonHeader(),
-  })
+  fetch(
+    "https://mgsruwfbimihsnlozaus.supabase.co/rest/v1/favourite?userID=eq." +
+      getcookie("user_id") +
+      "&select=*",
+    {
+      headers: getCommonHeader(),
+    }
+  )
     .then((response) => {
       return response.json();
     })
@@ -210,11 +224,13 @@ function getFavList() {
 }
 
 function triggerFav(element, view) {
+  if(!checkIsUserLoggedIn()){
+    window.location ="./login.html"
+    return
+  }
   const isPresent = set.has(element.objectID);
   if (!isPresent) {
-    var audio = new Audio(
-      "https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-77317/zapsplat_multimedia_button_click_fast_wooden_organic_002_78836.mp3"
-    );
+
     audio.play();
     view.classList.toggle("fadeIn");
     fetch("https://mgsruwfbimihsnlozaus.supabase.co/rest/v1/favourite", {
@@ -230,13 +246,11 @@ function triggerFav(element, view) {
           "https://raw.githubusercontent.com/mohitmanuja/HNClone/master/assets/favIconFilled.svg";
 
         set.add(element.objectID);
-        console.log("data" + JSON.stringify(data));
       })
       .catch(function () {
         // handle the error
       });
   } else {
-    var audio = new Audio("./audios/aww.mp3");
     audio.play();
     // https://mgsruwfbimihsnlozaus.supabase.co/rest/v1/favourite?post_id=eq.test
     fetch(
@@ -252,12 +266,9 @@ function triggerFav(element, view) {
       })
       .then((data) => {
         set.delete(element.objectID);
-        console.log("removed", set);
         view.src =
           "https://raw.githubusercontent.com/mohitmanuja/HNClone/master/assets/favIcon.svg";
         view.classList.toggle("fadeOut");
-
-        console.log("data" + JSON.stringify(data));
       })
       .catch(function () {
         // handle the error
@@ -281,3 +292,42 @@ function triggerPageNavColor(page) {
     queryPage.classList.add("pageSelected");
   }
 }
+
+function getcookie(name = "") {
+  let cookies = document.cookie;
+  let cookiestore = {};
+
+  cookies = cookies.split(";");
+
+  if (cookies[0] == "" && cookies[0][0] == undefined) {
+    return undefined;
+  }
+
+  cookies.forEach(function (cookie) {
+    cookie = cookie.split(/=(.+)/);
+    if (cookie[0].substr(0, 1) == " ") {
+      cookie[0] = cookie[0].substr(1);
+    }
+    cookiestore[cookie[0]] = cookie[1];
+  });
+
+  return name !== "" ? cookiestore[name] : cookiestore;
+}
+
+function handleUser() {
+  if (checkIsUserLoggedIn()) {
+    const userLabel = document.getElementById("profileLabel");
+    const loginLabel = document.getElementById("loginLabel");
+    userLabel.innerHTML = getcookie("email");
+    loginLabel.innerHTML = "logout";
+    loginLabel.href = "javascript:logoutUser()";
+  }
+}
+function logoutUser() {
+  logOutUser();
+  
+
+}
+var deleteCookie = function (name) {
+  document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+};

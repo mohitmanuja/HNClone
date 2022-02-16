@@ -10,8 +10,9 @@
 	<meta name="twitter:site" content="manuja_mohit">
 	<meta name="twitter:image" content="https://i.imgur.com/yEAG2at.jpg">
 	<link rel="stylesheet" type="text/css" href="./style/style.css">
-	<script type='text/javascript' src="./scripts/script.js"></script>
-	<script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/moment.js"></script>
+	<script defer type='text/javascript' src="./scripts/script.js"></script>
+	<script defer type='text/javascript' src="./scripts/login.js"></script>
+	<script defer type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/moment.js"></script>
 	<script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
 	<script src="https://unpkg.com/dayjs@1.8.21/plugin/relativeTime.js"></script>
 	<script>dayjs.extend(window.dayjs_plugin_relativeTime)</script>
@@ -34,8 +35,9 @@
 				<a class="topLink" href="/show/">show</a> |
 				<a class="topLink" href="/jobs/">jobs</a> |
 				<a class="topLink" href="/submit/">submit</a>
-				<div class="login hover-link">
-					<a href="/login" style="color: black"> login</a>
+				<div class="login">
+					<p id="profileLabel" style="display: inline;"></p>
+					<a id="loginLabel" class="hover-link" href="login.html" style="color: black; display: inline;" > login</a>
 				</div>
 
 			</nav>
